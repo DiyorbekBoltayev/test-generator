@@ -11,7 +11,7 @@
 <form action="/store" method="post" enctype="multipart/form-data" >
     @csrf
     <label for="txt">.txt formatdagi fayl yuklang !</label> <br>
-    <input type="file" name="file" id="txt"><br>
+    <input type="file" style="color: black" name="file" id="txt"><br>
     <input type="submit" value="saqlash">
 </form>
 </body>

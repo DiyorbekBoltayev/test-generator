@@ -200,13 +200,13 @@ class DocumentController extends Controller
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-       $text= $section->addText('Alhamdulillah');
+       $text= $section->addText('Test' ,array('bold'=>true, 'italic'=>true, 'size'=>20));
         for($m=0;$m<count($variantlar);$m++){
             $l=$m+1;
             $s='';
             $s=(string)$l;
             $s.='-variant';
-            $text=$section->addText($s);
+            $text=$section->addText($s,array('bold'=>true, 'italic'=>true, 'size'=>20));
             for($t=0;$t<count($variantlar[$m]);$t++){
                 $ll=$t+1;
                 $s='';
@@ -231,7 +231,64 @@ class DocumentController extends Controller
                 $text=$section->addText(htmlspecialchars($s));
 
             }
+            $phpWord->addTableStyle('Table', array('borderSize' => 6, 'borderColor' => '000000FF'));
+            $table = $section->addTable('Table');
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T/R"));
+            for($p=1;$p<=25;$p++){
+
+                $table->addCell(600)->addText(htmlspecialchars("{$p}"));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("Javob"));
+            for($p=1;$p<=25;$p++){
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T-Javob"));
+            for($p=1;$p<=25;$p++){
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+
+
         }
+        $text=$section->addText('Javoblar',array('bold'=>true, 'italic'=>true, 'size'=>20));
+        $phpWord->addTableStyle('Table', array('borderSize' => 6, 'borderColor' => '000000FF'));
+        $table = $section->addTable('Table');
+        $table->addRow();
+        $table->addCell(600)->addText(htmlspecialchars("Variant"));
+        for($p=1;$p<=25;$p++){
+
+            $table->addCell(600)->addText(htmlspecialchars("{$p}"));
+
+        }
+        for($y=0;$y<count($variantlar);$y++) {
+            $yy=$y+1;
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("{$yy}"));
+            for ($p = 0; $p <= 24; $p++) {
+                $javob=$variantlar[$y][$p][5];
+                if($javob==1){
+                    $javob='A';
+                }elseif ($javob==2){
+                    $javob='B';
+                }elseif ($javob==3){
+                    $javob='C';
+                }else{
+                    $javob='D';
+                }
+
+                $table->addCell(600)->addText(htmlspecialchars("{$javob}"));
+
+            }
+        }
+
+
 
 
 
