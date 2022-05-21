@@ -30,6 +30,7 @@ class TestController extends Controller
                     $savol[2]="";
                     $savol[3]="";
                     $savol[4]="";
+                    $savol[5]=1;
                     $z=0;
                     for($k=0;$k<$m;$k++){
 
