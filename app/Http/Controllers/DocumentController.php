@@ -2,18 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Faker\Core\File;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-class TestController extends Controller
+class DocumentController extends Controller
 {
-    public function check(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return  view('createdocument');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
 
         $json = json_encode(file_get_contents($request->file), true);
         $text = json_decode($json);
+        $text=(string)$text;
         $i = 0;
 
         $k = 0;
@@ -23,17 +51,17 @@ class TestController extends Controller
 
 
         $n = count($mas);
-        echo $n;
+
         for ($j = 0; $j < $n - 1; $j++) {
             $m = strlen($mas[$j]);
 
 
             $savol = [];
-            $savol[0] = "";
-            $savol[1] = "";
-            $savol[2] = "";
-            $savol[3] = "";
-            $savol[4] = "";
+            $savol[0] = '';
+            $savol[1] = '';
+            $savol[2] = '';
+            $savol[3] = '';
+            $savol[4] = '';
             $savol[5] = 1;
             $savol[6] = 0;
             $z = 0;
@@ -172,28 +200,35 @@ class TestController extends Controller
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-        $section->addText("Bismillah");
+       $text= $section->addText('Alhamdulillah');
         for($m=0;$m<count($variantlar);$m++){
             $l=$m+1;
-            $s="$l-variant";
-            $section->addText("$s");
+            $s='';
+            $s=(string)$l;
+            $s.='-variant';
+            $text=$section->addText($s);
             for($t=0;$t<count($variantlar[$m]);$t++){
                 $ll=$t+1;
-                $s="$ll. ";
-                $s.=$variantlar[$m][$t][0];
-                $section->addText("$s");
-                $s="A. ";
-                $s.=$variantlar[$m][$t][1];
-                $section->addText("$s");
-                $s="B. ";
-                $s.=$variantlar[$m][$t][2];
-                $section->addText("$s");
-                $s="C. ";
-                $s.=$variantlar[$m][$t][3];
-                $section->addText($s);
-                $s="D. ";
-                $s.=$variantlar[$m][$t][4];
-                $section->addText("$s");
+                $s='';
+                $s=(string)$ll;
+                $s.='. ';
+
+                $s.=(string)$variantlar[$m][$t][0];
+
+                $text=$section->addText(htmlspecialchars($s));
+
+                $s='A. ';
+                $s.=(string)$variantlar[$m][$t][1];
+                $text=$section->addText(htmlspecialchars($s));
+                $s='B. ';
+                $s.=(string)$variantlar[$m][$t][2];
+                $text=$section->addText(htmlspecialchars($s));
+                $s='C. ';
+                $s.=(string)$variantlar[$m][$t][3];
+                $text=$section->addText(htmlspecialchars($s));
+                $s='D. ';
+                $s.=(string)$variantlar[$m][$t][4];
+                $text=$section->addText(htmlspecialchars($s));
 
             }
         }
@@ -202,12 +237,58 @@ class TestController extends Controller
 
 
         $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save('Test17.docx');
-        return response()->download(public_path("Test17.docx"));
+        $time=time();
+
+        $objWriter->save("$time.docx");
+        return response()->download(public_path("$time.docx"));
 
 
     }
 
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }
-
-

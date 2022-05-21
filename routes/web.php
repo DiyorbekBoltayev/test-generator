@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('/checking',[\App\Http\Controllers\TestController::class,'check'])->name('check');
+Route::post('store',[\App\Http\Controllers\DocumentController::class,'store']);

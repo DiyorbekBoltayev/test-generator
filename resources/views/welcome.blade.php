@@ -8,7 +8,7 @@
     <title>Test Generator</title>
 </head>
 <body>
-<form action="{{route('check')}}" method="post" enctype="multipart/form-data" >
+<form action="/store" method="post" enctype="multipart/form-data" >
     @csrf
     <label for="txt">.txt formatdagi fayl yuklang !</label> <br>
     <input type="file" name="file" id="txt"><br>
