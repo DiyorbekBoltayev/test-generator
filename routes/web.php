@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/checking',[\App\Http\Controllers\TestController::class,'check'])->name('check');

@@ -8,9 +8,11 @@
     <title>Test Generator</title>
 </head>
 <body>
-<form action="" >
+<form action="{{route('check')}}" method="post" enctype="multipart/form-data" >
+    @csrf
     <label for="txt">.txt formatdagi fayl yuklang !</label> <br>
-    <input type="file" id="txt">
+    <input type="file" name="file" id="txt"><br>
+    <input type="submit" value="saqlash">
 </form>
 </body>
 </html>
