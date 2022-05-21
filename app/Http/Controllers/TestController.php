@@ -31,6 +31,7 @@ class TestController extends Controller
                     $savol[3]="";
                     $savol[4]="";
                     $savol[5]=1;
+                    $savol[6]=0;
                     $z=0;
                     for($k=0;$k<$m;$k++){
 
@@ -51,7 +52,115 @@ class TestController extends Controller
 
             }
 
-        dd($savollar);
+
+        $variantlar=[];
+        for($j=0;$j<$n-1;$j++){
+
+            $olindi=[0,0,0,0];
+            $rn=$savollar[$j];
+            rmatn1:
+            $ri=rand(1,4);
+            if($olindi[$ri-1]){
+                goto rmatn1;
+            }
+            $rn[1]=$savollar[$j][$ri];
+            if($ri==1){
+                $rn[5]=1;
+            }
+            if($ri==1){
+                $olindi[0]=1;
+            }if($ri==2){
+                $olindi[1]=1;
+            }if($ri==3){
+                $olindi[2]=1;
+            }if($ri==4){
+                $olindi[3]=1;
+            }
+            rmatn2:
+            $ri=rand(1,4);
+            if($olindi[$ri-1]){
+                goto rmatn2;
+            }
+            $rn[2]=$savollar[$j][$ri];
+            if($ri==1){
+                $rn[5]=2;
+            }
+            if($ri==1){
+                $olindi[0]=1;
+            }if($ri==2){
+                $olindi[1]=1;
+            }if($ri==3){
+                $olindi[2]=1;
+            }if($ri==4){
+                $olindi[3]=1;
+            }
+            rmatn3:
+            $ri=rand(1,4);
+            if($olindi[$ri-1]){
+                goto rmatn3;
+            }
+            $rn[3]=$savollar[$j][$ri];
+            if($ri==1){
+                $rn[5]=3;
+            }
+            if($ri==1){
+                $olindi[0]=1;
+            }if($ri==2){
+                $olindi[1]=1;
+            }if($ri==3){
+                $olindi[2]=1;
+            }if($ri==4){
+                $olindi[3]=1;
+            }
+            rmatn4:
+            $ri=rand(1,4);
+            if($olindi[$ri-1]){
+                goto rmatn4;
+            }
+            $rn[4]=$savollar[$j][$ri];
+            if($ri==1){
+                $rn[5]=4;
+            }
+            if($ri==1){
+                $olindi[0]=1;
+            }if($ri==2){
+                $olindi[1]=1;
+            }if($ri==3){
+                $olindi[2]=1;
+            }if($ri==4){
+                $olindi[3]=1;
+            }
+            $savollar[$j]=$rn;
+
+
+
+
+
+        }
+
+
+for ($t=0;$t<8;$t++){
+    $variant=[];
+    for ($i=0;$i<25;$i++){
+        random: $rand=rand(0,199);
+        if($savollar[$rand][6]){
+            goto random;
+        }
+        $variant[]=$savollar[$rand];
+        $savollar[$rand][6]=1;
+
 
     }
+    $variantlar[]=$variant;
 }
+dd($variantlar);
+
+
+
+
+
+    }
+
+}
+
+
