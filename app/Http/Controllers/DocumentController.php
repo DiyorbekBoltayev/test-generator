@@ -37,6 +37,14 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+           "file" => 'required'
+        ]);
+        $txtmi=$request->file->getClientOriginalName();
+        $txtn=strlen($txtmi);
+        if(!($txtmi[$txtn-1]=='t' && $txtmi[$txtn-2]=='x' && $txtmi[$txtn-3]=='t' && $txtmi[$txtn-4]=='.' )){
+            return redirect()->back()->withErrors('.txt turdagi fayl yuklang');
+        }
 
 
         $json = json_encode(file_get_contents($request->file), true);
@@ -200,7 +208,7 @@ class DocumentController extends Controller
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-       $text= $section->addText('Test' ,array('bold'=>true, 'italic'=>true, 'size'=>20));
+        $text= $section->addText('Test' ,array('bold'=>true, 'italic'=>true, 'size'=>20));
         for($m=0;$m<count($variantlar);$m++){
             $l=$m+1;
             $s='';
