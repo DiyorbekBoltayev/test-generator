@@ -19,10 +19,10 @@
 
         <h3 class="text">Dasturdan foydalanish qo'llanmasi</h3>
         <li><p>
-                Ushbu dastur yodamida test savollarini va jovoblarini generatsiya qilish mumkin. Buning uchun
+                Ushbu dastur yordamida test savollarini va javoblarini generatsiya qilish mumkin. Buning uchun
                <b>AIKEN </b>formatdagi <b>.txt </b> kengaytmali faylni yuklash va variantlar soni, har bir variantdagi savolllar
                 soni tanlanishi kerak. Umumiy savollar soni (variantlar soni * bir variantdagi savollar soni) <b>20 000</b> dan oshmasligi kerak
-<b>Barcha to'gri javoblar A javobda bo'lishi kerak </b>
+<b>Barcha to'gri javoblar A javobda bo'lishi kerak. Javoblardan keyin "ANSWER: A" (orasida bitta bo'sh joy bor) qo'shtirnoqlarsiz bo'lishi shart.</b> Quyidagi AIKEN format notog'ri yozilgan bo'lsa dastur to'gri ishlamaydi.
             </p></li>
         <li>
             AIKEN formatga misol<br><br>
