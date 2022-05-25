@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+Route::get('/documentation',function (){
+    return view('doc');
+})->name('doc');
 Route::post('/checking',[\App\Http\Controllers\TestController::class,'check'])->name('check');
 Route::post('store',[\App\Http\Controllers\DocumentController::class,'store']);
