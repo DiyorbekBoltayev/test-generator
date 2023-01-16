@@ -37,8 +37,8 @@
 
             </form>
             <div class="d-flex justify-content-between">
-            <label for=""> ©<a href="http://amusoft.uz/">AmuSoft.uz</a></label>
-            <label for=""> <a href="{{route('doc')}}">Foydalanish qo'llanmasi</a></label>
+            <label for=""> </label>
+            <label for=""> <a href="{{route('doc')}}">Foydalanish qo'llanmasi bilan tanishing</a></label>
             </div>
 
 
