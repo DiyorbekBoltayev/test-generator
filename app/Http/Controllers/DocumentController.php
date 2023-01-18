@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Telegram;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\IOFactory;
@@ -228,7 +229,7 @@ class DocumentController extends Controller
 
 $phpWord = new PhpWord();
 $section = $phpWord->addSection();
-$text = $section->addText('Test', array('bold' => true, 'italic' => true, 'size' => 20));
+
 for ($m = 0;
 $m<count($variantlar);
 $m++) {
@@ -264,62 +265,65 @@ $m++) {
 
     }
 
-    $phpWord->addTableStyle('Table', array('borderSize' => 6, 'borderColor' => '000000FF'));
-    $table = $section->addTable('Table');
-    $qoldiq = $savol_soni % 25;
-    $butun = intdiv($savol_soni, 25);
-
-    for ($z = 0; $z < $butun; $z++) {
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("T/R"));
-        for ($p = 1; $p <= 25; $p++) {
-            $ty = $z * 25 + $p;
-            $table->addCell(600)->addText(htmlspecialchars("{$ty}"));
-
-        }
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("Javob"));
-        for ($p = 1; $p <= 25; $p++) {
-
-            $table->addCell(600)->addText(htmlspecialchars(" "));
-
-        }
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("T-Javob"));
-        for ($p = 1; $p <= 25; $p++) {
-
-            $table->addCell(600)->addText(htmlspecialchars(" "));
-
-        }
-
-    }
-    if ($qoldiq > 0) {
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("T/R"));
-        for ($p = 1; $p <= $qoldiq; $p++) {
-            $ty = $butun * 25 + $p;
-            $table->addCell(600)->addText(htmlspecialchars("{$ty}"));
-
-        }
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("Javob"));
-        for ($p = 1; $p <= $qoldiq; $p++) {
-
-            $table->addCell(600)->addText(htmlspecialchars(" "));
-
-        }
-        $table->addRow();
-        $table->addCell(600)->addText(htmlspecialchars("T-Javob"));
-        for ($p = 1; $p <= $qoldiq; $p++) {
-
-            $table->addCell(600)->addText(htmlspecialchars(" "));
-
-        }
-    }
 
 
+    $section->addPageBreak();
 }
-$text = $section->addText('Javoblar', array('bold' => true, 'italic' => true, 'size' => 20));
+        $text = $section->addText('Javoblarni belgilash uchun', array('bold' => true, 'italic' => true, 'size' => 20));
+        $phpWord->addTableStyle('Table', array('borderSize' => 6, 'borderColor' => '000000FF'));
+        $table = $section->addTable('Table');
+        $qoldiq = $savol_soni % 25;
+        $butun = intdiv($savol_soni, 25);
+
+        for ($z = 0; $z < $butun; $z++) {
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T/R"));
+            for ($p = 1; $p <= 25; $p++) {
+                $ty = $z * 25 + $p;
+                $table->addCell(600)->addText(htmlspecialchars("{$ty}"));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("Javob"));
+            for ($p = 1; $p <= 25; $p++) {
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T-Javob"));
+            for ($p = 1; $p <= 25; $p++) {
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+
+        }
+        if ($qoldiq > 0) {
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T/R"));
+            for ($p = 1; $p <= $qoldiq; $p++) {
+                $ty = $butun * 25 + $p;
+                $table->addCell(600)->addText(htmlspecialchars("{$ty}"));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("Javob"));
+            for ($p = 1; $p <= $qoldiq; $p++) {
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+            $table->addRow();
+            $table->addCell(600)->addText(htmlspecialchars("T-Javob"));
+            for ($p = 1; $p <= $qoldiq; $p++) {
+
+                $table->addCell(600)->addText(htmlspecialchars(" "));
+
+            }
+        }
+        $section->addPageBreak();
+$text = $section->addText("To'g'ri javoblar", array('bold' => true, 'italic' => true, 'size' => 20));
 $phpWord->addTableStyle('Table', array('borderSize' => 6, 'borderColor' => '000000FF'));
 $table = $section->addTable('Table');
 
@@ -384,6 +388,17 @@ $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
 $time = time();
 
 $objWriter->save("$time.docx");
+        try {
+            $telegram = new Telegram('5920929377:AAFwcvt2kjcsal8CMw2fp0nfKyNNlJu1hgs');
+
+            $chat_id ='1490424185';
+            $content = array('chat_id' => $chat_id, 'text' => 'Test generatsiya qilindi'."\n"."http://test.amusoft.uz/".$time.".docx");
+
+            $telegram->sendMessage($content);
+        } catch (\Exception $e) {
+
+        }
+
 return response()->download(public_path("$time.docx"));
 
 
